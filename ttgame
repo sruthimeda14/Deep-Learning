@@ -1,0 +1,11 @@
+FROM nvidia/cuda:latest
+RUN apt-get update && \
+    apt-get install -y python3 python3-pip && \
+    pip3 install --upgrade pip && \
+    pip3 install google-auth google-auth-oauthlib google-auth-httplib2 google-api-python-client torch opencv-python scikit-learn numpy pillow matplotlib tqdm
+
+RUN mkdir /app
+WORKDIR /app
+ADD https://drive.google.com/uc?id=<data_file_id> data/
+ADD https://drive.google.com/uc?id=<code_file_id> code/
+CMD ["python3", "code/train.py"]
